@@ -1,15 +1,15 @@
 const header = {
   // all the properties are optional - can be left empty or deleted
-  homepage: 'https://kubilayege.github.io/portfolio',
+  homepage: 'https://rajshekhar26.github.io/cleanfolio',
   title: 'JS.',
 }
 
 const about = {
   // all the properties are optional - can be left empty or deleted
-  name: 'Kubilay Ege',
-  role: 'Game Developer',
+  name: 'John Smith',
+  role: 'Front End Engineer',
   description:
-    'ya',
+    'Adipisicing sit fugit ullam unde aliquid sequi Facilis soluta facilis perspiciatis corporis nulla aspernatur. Autem eligendi rerum delectus modi quisquam? Illo ut quasi nemo ipsa cumque perspiciatis! Maiores minima consectetur.',
   resume: 'https://example.com',
   social: {
     linkedin: 'https://linkedin.com',
