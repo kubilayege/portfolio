@@ -60,4 +60,14 @@ const scrollUp = () => {
 	}
 }
 
+function playVideo(video) {  
+    video.play(); 
+	video.controls = true;
+}
+
+function pauseVideo(video) {  
+    video.pause(); 
+	video.controls = false;
+}
+
 document.addEventListener('scroll', scrollUp)
