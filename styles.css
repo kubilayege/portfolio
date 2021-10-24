@@ -306,8 +306,10 @@ main {
   transition: transform 0.2s linear;
 }
 
-.project:hover {
-  transform: translateY(-7px);
+.project:hover{
+  transform: translateY(-10px);
+  transform: scale(1.05);
+  
 }
 
 .project__description {
@@ -419,4 +421,9 @@ main {
   .scroll-container {
     display: none;
   }
+
+  .hide {
+    display: none;
+  }
+
 }
