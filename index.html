@@ -90,6 +90,35 @@
         <h2 class="section__title">Projects</h2>
 
         <div class="projects__grid">
+
+          <div class="project">
+            <h3>Node Graph Editor</h3>
+            <div>
+              <a href="1x/ComboGraph.png" target="_blank">
+                <img src="1x/ComboGraph.png" class="img" >                
+              </a>
+           </div>
+            <p class="project__description">
+              Developed a generic node graph editor for us to use in the roguelike project. We extended our generic library for designing combo attacks for different types of weapons. 
+            </p>
+
+            <ul class="project__stack">
+              <li class="project__stack-item">Unity3D</li>
+              <li class="project__stack-item">GraphView</li>
+              <li class="project__stack-item">UIElements</li>
+              <li class="project__stack-item">EditorScripting</li>
+            </ul>
+            
+            <a
+            href="https://github.com/kubilayege/Generic-Graph-Editor"
+            aria-label="Github"
+            class="link link--icon"
+            target="_blank" rel="noopener noreferrer"
+            >
+            <i aria-hidden="true" class="fab fa-github"></i>
+            </a>
+          </div>
+
           <div class="project">
             <h3>Private Unity Package Management</h3>
             <div>
@@ -113,13 +142,13 @@
           <div class="project">
             <h3>Hoarder Cleaner</h3>
             <div>
-              <video onmouseover="playVideo(this)" onmouseout="pauseVideo(this)" class="portfolio-video"  loop>
+              <video onloadstart="this.volume=0.2" onmouseover="playVideo(this)" onmouseout="pauseVideo(this)" class="portfolio-video"  loop>
                 <source src="videos/Hoarder Cleaner.mp4#t=0.1" type="video/mp4" />
                 Your browser does not support the video tag.
               </video>
            </div>
             <p class="project__description">
-              Clean and tidy rooms, find collectibles, and earn coins!
+              A game where you cleaned multiple rooms of a level. Used different kind of a level loop where the player could choose which levels to be played first.  
             </p>
 
             
@@ -134,13 +163,13 @@
           <div class="project">
             <h3>Car Crash 3D</h3>
             <div>
-              <video onmouseover="playVideo(this)" onmouseout="pauseVideo(this)" class="portfolio-video"  loop>
+              <video onloadstart="this.volume=0.2" onmouseover="playVideo(this)" onmouseout="pauseVideo(this)" class="portfolio-video"  loop>
                 <source src="videos/Car Crash 3D.mp4#t=0.1" type="video/mp4" />
                 Your browser does not support the video tag.
               </video>
            </div>
             <p class="project__description">
-              Drive your car, avoid the obstacles, jump from high places, do everything to save your car from destruction and reach to transporter at the end!
+              Used car physics asset pack which handled mesh deformations on crash. Instead of saving mesh data, forces were filtered with a min threshold to optimize save data which were then applied over next sessions.  
             </p>
 
             
@@ -161,7 +190,34 @@
             </a>
 
           </div>
+          
+          <div class="project">
+            <h3>Curvy Splines Plugin</h3>
+            <div>
+              <a href="1x/roadGenerator.gif" target="_blank">
+                <img src="1x/roadGenerator.gif" class="img" >                
+              </a>
+           </div>
+            <p class="project__description">
+              Developed a non-destructive level editor using Curvy Splines asset pack. 
+            </p>
 
+            
+            <ul class="project__stack">
+              <li class="project__stack-item">Unity3D</li>
+              <li class="project__stack-item">CurvySplines</li>
+              <li class="project__stack-item">EditorScripting</li>
+            </ul>
+
+            <a
+            href="https://github.com/kubilayege/CurvySplinesPlugin"
+            aria-label="Github"
+            class="link link--icon"
+            target="_blank" rel="noopener noreferrer"
+            >
+            <i aria-hidden="true" class="fab fa-github"></i>
+            </a>
+          </div>
 
           <div class="project">
             <h3>Baby Boss Run</h3>
@@ -172,24 +228,33 @@
               </video>
            </div>
             <p class="project__description">
-              Collect the babies, grow up and become the head of the baby company!
+              Developed a plugin for easy level generation tool using CurvySplines asset pack. Used unity animation rigging for the mechanical arm IK movement.   
             </p>
-
             
             <ul class="project__stack">
               <li class="project__stack-item">Unity3D</li>
               <li class="project__stack-item">Animation Rigging</li>
               <li class="project__stack-item">Editor Scripting</li>
             </ul>
-
+            
+            <a
+              href="https://play.google.com/store/apps/details?id=com.flamingo.cubepuzzle3d"
+              aria-label="Store Page"
+              class="link link--icon"
+              target="_blank" rel="noopener noreferrer"
+            >
+              <i aria-hidden="true" class="fab fa-google-play"></i>
+            </a>
 
           </div>
+          
+          
 
           <div class="project">
 
             <h3>Guess Song</h3>
             <div>
-              <video onmouseover="playVideo(this)" onmouseout="pauseVideo(this)" class="portfolio-video"  loop>
+              <video onloadstart="this.volume=0.3" onmouseover="playVideo(this)" onmouseout="pauseVideo(this)" class="portfolio-video"  loop>
                 <source src="videos/Guess Song.mp4#t=1.13" type="video/mp4" />
                 Your browser does not support the video tag.
               </video>
@@ -215,12 +280,13 @@
               </video>
            </div>
             <p class="project__description">
-              Clear all tiles to see whats hiding behind.
+              First iteration of a level editor which was built on top of a spline asset pack. Spline mesh could be multiple part to create holes. Automatic object placement for the coins and the road part ends.
             </p>
 
             
             <ul class="project__stack">
               <li class="project__stack-item">Unity3D</li>
+              <li class="project__stack-item">CurvySplines</li>
             </ul>
         
             <a
