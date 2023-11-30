@@ -90,7 +90,34 @@
         <h2 class="section__title">Projects</h2>
 
         <div class="projects__grid">
+          
+          <div class="project">
+            <h3>Multiplayer Prototype</h3>
+            <div>
+              <video onmouseover="playVideo(this)" onmouseout="pauseVideo(this)" muted class="portfolio-video"  loop>
+                <source src="videos/mpChase.mp4#t=0.02" type="video/mp4" />
+                Your browser does not support the video tag.
+              </video>
+           </div>
+            <p class="project__description">
+              A multiplayer party game prototype. We tried different networking solutions and tested various options. Settled on Photon Fusion with Steamworks.NET.   
+            </p>
 
+            
+            <ul class="project__stack">
+              <li class="project__stack-item">Unity3D</li>
+              <li class="project__stack-item">Networking</li>
+              <li class="project__stack-item">Photon Fusion</li>
+            </ul>
+            <a
+            href="https://github.com/kubilayege/MP-Prototype"
+            aria-label="Github"
+            class="link link--icon"
+            target="_blank" rel="noopener noreferrer"
+            >
+            <i aria-hidden="true" class="fab fa-github"></i>
+            </a>
+          </div>
 
           <div class="project">
             <h3>Roguelike Prototype</h3>
