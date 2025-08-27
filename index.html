@@ -4,6 +4,9 @@
     <meta charset="UTF-8" />
     <meta property="og:image" content="preview.png" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="color-scheme" content="light dark" />
+    <meta name="theme-color" content="#fcfcfc" media="(prefers-color-scheme: light)" />
+    <meta name="theme-color" content="#23283e" media="(prefers-color-scheme: dark)" />
     <meta name="description" content="Portfolio" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="icon" href="1x/icon4.png">
@@ -12,20 +15,18 @@
       href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;700&display=swap"
       rel="stylesheet"
     />
-    <script
-      src="https://kit.fontawesome.com/fa62c117c7.js"
-      crossorigin="anonymous"
-    ></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" integrity="sha512-1ycn6IcaQQ40/MKBW2W4Rhis/DbILU74C1vSrLJxCq57o941Ym01SwNsOMqvEBFlcgUa6xLiPY/NS5R+E6ztJQ==" crossorigin="anonymous" referrerpolicy="no-referrer" />
     <link rel="stylesheet" href="styles.css" />
     <title>o/</title>
   </head>
   <body class="light" id="top">
+    <div class="scroll-progress" id="scroll-progress"></div>
     <header class="header center">
       <h3>
       </h3>
 
       <nav class="nav center">
-        <ul class="nav__list center">
+        <ul class="nav__list center" id="primary-navigation" aria-hidden="false">
           <li class="nav__list-item">
             <a class="link link--nav" href="#projects">Projects</a>
           </li>
@@ -36,54 +37,21 @@
             <a class="link link--nav" href="#contact">Contact</a>
           </li>
         </ul>
+        <span class="nav__indicator" aria-hidden="true"></span>
 
-        <button type="button" aria-label="toggle theme" class="btn btn--icon">
-          <i aria-hidden="true" id="btn-theme" class="fas fa-moon"></i>
-        </button>
-
-        <button
-          type="button"
-          aria-label="toggle navigation"
-          class="btn btn--icon nav__hamburger"
-        >
-          <i aria-hidden="true" class="fas fa-bars"></i>
-        </button>
       </nav>
     </header>
 
     <main>
       <!-- About -->
-      <div class="about center">
+      <div class="about center" id="about">
         <h1>Hi, I am <span class="about__name">Kubilay Ege.</span></h1>
         <h2 class="about__role">A Game Developer.</h2>
         <p class="about__desc">
           My experience in game development has taught me the importance of striving for the best solution, which fuels growth and creativity. Learning to adapt and find practical solutions has expanded my perspective. Balancing the quest for perfection with practicality is an exciting challenge that I eagerly engage with. This ongoing journey of discovery and delight in its complexities shapes my approach to my work.
         </p>
-
-        <div class="about__contact center">
-          <!-- <a href="https://example.com">
-            <span class="btn btn--outline">Resume</span>
-          </a> -->
-
-          <a
-            href="https://github.com/kubilayege"
-            aria-label="github"
-            class="link link--icon"
-            target="_blank" rel="noopener noreferrer"
-          >
-            <i aria-hidden="true" class="fab fa-github"></i>
-          </a>
-
-          <a
-            href="https://www.linkedin.com/in/kubilay-ege-17381011b/"
-            aria-label="linkedin"
-            class="link link--icon"
-            target="_blank" rel="noopener noreferrer"
-          >
-            <i aria-hidden="true" class="fab fa-linkedin"></i>
-          </a>
+       
         </div>
-      </div>
 
       <!-- Projects -->
       <section id="projects" class="section projects">
@@ -189,7 +157,7 @@
             <h3>Node Graph Editor</h3>
             <div>
               <a href="1x/ComboGraph.png" target="_blank">
-                <img src="1x/ComboGraph.png" class="img" >                
+                <img loading="lazy" src="1x/ComboGraph.png" class="img" >                
               </a>
            </div>
             <p class="project__description">
@@ -819,17 +787,26 @@
         <a href="mailto:kubilayege95@gmail.com">
           <span class="btn btn--outline">Email me</span>
         </a>
+        <div class="contact__links center">
+          <a
+            href="https://github.com/kubilayege"
+            aria-label="github"
+            class="link link--icon"
+            target="_blank" rel="noopener noreferrer"
+          >
+            <i aria-hidden="true" class="fab fa-github"></i>
+          </a>
+          <a
+            href="https://www.linkedin.com/in/kubilay-ege-17381011b/"
+            aria-label="linkedin"
+            class="link link--icon"
+            target="_blank" rel="noopener noreferrer"
+          >
+            <i aria-hidden="true" class="fab fa-linkedin"></i>
+          </a>
+        </div>
       </section>
     </main>
-
-    <!-- <footer class="footer">
-      <a
-        href="https://github.com/rajshekhar26/cleanfolio-minimal"
-        class="link footer__link"
-      >
-        Created By Raj Shekhar
-      </a>
-    </footer> -->
 
     <div class="scroll-container">
     <div class="scroll-top">
@@ -837,6 +814,16 @@
         <i aria-hidden="true" class="fas fa-arrow-up"></i>
       </a>
     </div>
+    </div>
+
+    <div class="lightbox" id="lightbox" aria-hidden="true" role="dialog" aria-modal="true">
+      <div class="lightbox__content">
+        <button type="button" class="btn btn--icon lightbox__close" aria-label="Close preview">
+          <i aria-hidden="true" class="fas fa-times"></i>
+        </button>
+        <div id="lightbox-media"></div>
+        <div class="lightbox__caption" id="lightbox-caption"></div>
+      </div>
     </div>
 
     <script src="./script.js"></script>
