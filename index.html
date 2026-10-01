@@ -2,830 +2,150 @@
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
-    <meta property="og:image" content="preview.png" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Kubilay Ege — Game Developer &amp; Software Engineer</title>
+    <meta name="description" content="Kubilay Ege — game developer and software engineer. Seven years of shipping games in Unity, still building them, plus the pipelines, tools and agent workflows around them. Currently at Joygame Publishing." />
     <meta name="color-scheme" content="light dark" />
-    <meta name="theme-color" content="#fcfcfc" media="(prefers-color-scheme: light)" />
-    <meta name="theme-color" content="#23283e" media="(prefers-color-scheme: dark)" />
-    <meta name="description" content="Portfolio" />
+    <meta name="theme-color" content="#eceef2" media="(prefers-color-scheme: light)" />
+    <meta name="theme-color" content="#0e1015" media="(prefers-color-scheme: dark)" />
+
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content="Kubilay Ege — Game Developer &amp; Software Engineer" />
+    <meta property="og:description" content="Mobile games, build pipelines, team tools and agent workflows." />
+    <meta property="og:url" content="https://kubilayege.github.io/portfolio/" />
+    <meta property="og:image" content="https://kubilayege.github.io/portfolio/og-image.jpg" />
+    <meta name="twitter:card" content="summary_large_image" />
+
+    <link rel="icon" href="1x/icon4.png" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="icon" href="1x/icon4.png">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
-      href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;700&display=swap"
+      href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@112..125,600..900&family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:ital,wght@0,400;0,500;0,600;1,400&display=swap"
       rel="stylesheet"
     />
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" integrity="sha512-1ycn6IcaQQ40/MKBW2W4Rhis/DbILU74C1vSrLJxCq57o941Ym01SwNsOMqvEBFlcgUa6xLiPY/NS5R+E6ztJQ==" crossorigin="anonymous" referrerpolicy="no-referrer" />
     <link rel="stylesheet" href="styles.css" />
-    <title>o/</title>
+    <script>
+      // Apply the theme before first paint to avoid a flash.
+      document.documentElement.dataset.theme =
+        localStorage.getItem('portfolio-theme') ||
+        (matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light')
+    </script>
   </head>
-  <body class="light" id="top">
-    <div class="scroll-progress" id="scroll-progress"></div>
-    <header class="header center">
-      <h3>
-      </h3>
+  <body>
+    <a class="skip-link" href="#main">Skip to content</a>
 
-      <nav class="nav center">
-        <ul class="nav__list center" id="primary-navigation" aria-hidden="false">
-          <li class="nav__list-item">
-            <a class="link link--nav" href="#projects">Projects</a>
-          </li>
-          <!-- <li class="nav__list-item">
-            <a class="link link--nav" href="#skills">Skills</a>
-          </li> -->
-          <li class="nav__list-item">
-            <a class="link link--nav" href="#contact">Contact</a>
-          </li>
-        </ul>
-        <span class="nav__indicator" aria-hidden="true"></span>
-
+    <header class="header" id="header">
+      <a class="header__mark" href="#top" aria-label="Back to top">KE</a>
+      <nav class="nav" aria-label="Sections">
+        <a class="nav__link" href="#now">Now</a>
+        <a class="nav__link" href="#games">Games</a>
+        <a class="nav__link" href="#tools">Tools</a>
+        <a class="nav__link" href="#experience">Experience</a>
+        <a class="nav__link" href="#contact">Contact</a>
       </nav>
+      <button class="icon-btn" id="theme-toggle" type="button" aria-label="Switch to dark theme">
+        <svg class="icon icon--sun" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="4.5"/><path d="M12 1.5v3M12 19.5v3M1.5 12h3M19.5 12h3M4.6 4.6l2.1 2.1M17.3 17.3l2.1 2.1M4.6 19.4l2.1-2.1M17.3 6.7l2.1-2.1"/></svg>
+        <svg class="icon icon--moon" viewBox="0 0 24 24" aria-hidden="true"><path d="M20.5 14.5A8.5 8.5 0 0 1 9.5 3.5a8.5 8.5 0 1 0 11 11Z"/></svg>
+      </button>
     </header>
 
-    <main>
-      <!-- About -->
-      <div class="about center" id="about">
-        <h1>Hi, I am <span class="about__name">Kubilay Ege.</span></h1>
-        <h2 class="about__role">A Game Developer.</h2>
-        <p class="about__desc">
-          My experience in game development has taught me the importance of striving for the best solution, which fuels growth and creativity. Learning to adapt and find practical solutions has expanded my perspective. Balancing the quest for perfection with practicality is an exciting challenge that I eagerly engage with. This ongoing journey of discovery and delight in its complexities shapes my approach to my work.
-        </p>
-       
+    <main id="main">
+      <section class="hero" id="top">
+        <div class="hero__copy">
+          <p class="eyebrow">Game developer · Software engineer · Istanbul</p>
+          <h1 class="hero__title">Kubilay Ege<span class="hero__title-sub">builds games and the software around&nbsp;them.</span></h1>
+          <p class="hero__lede">
+            Seven years of shipping games in Unity, from hyper-casual to live titles at Joygame
+            Publishing, and I still build games. Alongside them I make whatever helps the team ship:
+            build pipelines, shared project foundations, internal tools and agent workflows, usually
+            sitting close to the people who use them. Whether it's a level, a build dashboard or a
+            menu bar app, I try to give it the polish a game gets.
+          </p>
+          <div class="hero__actions">
+            <a class="btn btn--solid" href="#games">See the games</a>
+            <a class="btn btn--ghost" href="mailto:kubilayege95@gmail.com">Email me</a>
+          </div>
         </div>
-
-      <!-- Projects -->
-      <section id="projects" class="section projects">
-        <h2 class="section__title">Projects</h2>
-
-        <div class="projects__grid">
-          
-          <div class="project">
-            <h3>Unity Cloud Services App</h3>
-            <div>
-              <video onmouseover="playVideo(this)" onmouseout="pauseVideo(this)" muted class="portfolio-video"  loop>
-                <source src="videos/adshop.mp4#t=0.02" type="video/mp4" />
-                Your browser does not support the video tag.
-              </video>
-           </div>
-            <p class="project__description">
-                In this project I used unity cloud services api and amazon RDS to make a secure watch and earn app.  
-            </p>
-
-            
-            <ul class="project__stack">
-              <li class="project__stack-item">Unity</li>
-              <li class="project__stack-item">Unity Cloud</li>
-              <li class="project__stack-item">Player Authentication</li>
-              <li class="project__stack-item">Unity Remote Config</li>
-              <li class="project__stack-item">Cloud Code Modules</li>
-              <li class="project__stack-item">.NET</li>
-              <li class="project__stack-item">Unity Economy</li>
-              <li class="project__stack-item">Unity Inventory</li>
-              <li class="project__stack-item">Cloud Content Delivery</li>
-              <li class="project__stack-item">RDS</li>
-              <li class="project__stack-item">PostgreSQL</li>
-              <li class="project__stack-item">VContainer</li>
-            </ul>
-            <a
-            href="https://github.com/kubilayege/Unity-Cloud-Services"
-            aria-label="Github"
-            class="link link--icon"
-            target="_blank" rel="noopener noreferrer"
-            >
-            <i aria-hidden="true" class="fab fa-github"></i>
-            </a>
-          </div>
-
-          <div class="project">
-            <h3>Multiplayer Prototype</h3>
-            <div>
-              <video onmouseover="playVideo(this)" onmouseout="pauseVideo(this)" muted class="portfolio-video"  loop>
-                <source src="videos/mpChase.mp4#t=0.02" type="video/mp4" />
-                Your browser does not support the video tag.
-              </video>
-           </div>
-            <p class="project__description">
-              A multiplayer party game prototype. We tried different networking solutions and tested various options. Settled on Photon Fusion with Steamworks.NET.   
-            </p>
-
-            
-            <ul class="project__stack">
-              <li class="project__stack-item">Unity</li>
-              <li class="project__stack-item">Networking</li>
-              <li class="project__stack-item">Photon Fusion</li>
-              <li class="project__stack-item">VContainer</li>
-            </ul>
-            <a
-            href="https://github.com/kubilayege/MP-Prototype"
-            aria-label="Github"
-            class="link link--icon"
-            target="_blank" rel="noopener noreferrer"
-            >
-            <i aria-hidden="true" class="fab fa-github"></i>
-            </a>
-          </div>
-
-          <div class="project">
-            <h3>Roguelike Prototype</h3>
-            <div>
-              <video onmouseover="playVideo(this)" onmouseout="pauseVideo(this)" muted class="portfolio-video"  loop>
-                <source src="videos/rogue-like.mp4#t=0.02" type="video/mp4" />
-                Your browser does not support the video tag.
-              </video>
-           </div>
-            <p class="project__description">
-              A roguelike game where player can wield different weapons. Procedurally generated level generation was used with seeds.  
-            </p>
-
-            
-            <ul class="project__stack">
-              <li class="project__stack-item">Unity</li>
-              <li class="project__stack-item">Dungeon Architect</li>
-              <li class="project__stack-item">GraphView</li>
-            </ul>
-            <a
-            href="https://github.com/kubilayege/skill-cast-so"
-            aria-label="Github"
-            class="link link--icon"
-            target="_blank" rel="noopener noreferrer"
-            >
-            <i aria-hidden="true" class="fab fa-github"></i>
-            </a>
-          </div>
-
-          <div class="project">
-            <h3>Node Graph Editor</h3>
-            <div>
-              <a href="1x/ComboGraph.png" target="_blank">
-                <img loading="lazy" src="1x/ComboGraph.png" class="img" >                
-              </a>
-           </div>
-            <p class="project__description">
-              Developed a generic node graph editor for us to use in the roguelike project. We extended our generic library for designing combo attacks for different types of weapons. 
-            </p>
-
-            <ul class="project__stack">
-              <li class="project__stack-item">Unity</li>
-              <li class="project__stack-item">GraphView</li>
-              <li class="project__stack-item">UIElements</li>
-              <li class="project__stack-item">EditorScripting</li>
-            </ul>
-            
-            <a
-            href="https://github.com/kubilayege/Generic-Graph-Editor"
-            aria-label="Github"
-            class="link link--icon"
-            target="_blank" rel="noopener noreferrer"
-            >
-            <i aria-hidden="true" class="fab fa-github"></i>
-            </a>
-          </div>
-
-          <div class="project">
-            <h3>Private Unity Package Management</h3>
-            <div>
-              <a href="1x/fupm.png" target="_blank">
-                <img src="1x/fupm.png" class="img" >                
-              </a>
-           </div>
-            <p class="project__description">
-              Developed private package system using verdaccio, hosted on Amazon EC2. Created common packages for developers to use. Templates were bundles of packages. 
-            </p>
-
-            
-            <ul class="project__stack">
-              <li class="project__stack-item">Unity</li>
-              <li class="project__stack-item">Verdaccio</li>
-              <li class="project__stack-item">AWS</li>
-              <li class="project__stack-item">UPM</li>
-            </ul>
-
-          </div>
-          <div class="project">
-            <h3>Hoarder Cleaner</h3>
-            <div>
-              <video onloadstart="this.volume=0.2" onmouseover="playVideo(this)" onmouseout="pauseVideo(this)" class="portfolio-video"  loop>
-                <source src="videos/Hoarder Cleaner.mp4#t=0.1" type="video/mp4" />
-                Your browser does not support the video tag.
-              </video>
-           </div>
-            <p class="project__description">
-              A game where you cleaned multiple rooms of a level. Used different kind of a level loop where the player could choose which levels to be played first.  
-            </p>
-
-            
-            <ul class="project__stack">
-              <li class="project__stack-item">Unity</li>
-              <li class="project__stack-item">Paint3D</li>
-
-            </ul>
-
-          </div>
-
-          <div class="project">
-            <h3>Car Crash 3D</h3>
-            <div>
-              <video onloadstart="this.volume=0.2" onmouseover="playVideo(this)" onmouseout="pauseVideo(this)" class="portfolio-video"  loop>
-                <source src="videos/Car Crash 3D.mp4#t=0.1" type="video/mp4" />
-                Your browser does not support the video tag.
-              </video>
-           </div>
-            <p class="project__description">
-              Used car physics asset pack which handled mesh deformations on crash. Instead of saving mesh data, forces were filtered with a min threshold to optimize save data which were then applied over next sessions.  
-            </p>
-
-            
-            <ul class="project__stack">
-              <li class="project__stack-item">Unity</li>
-              <li class="project__stack-item">Mesh Deformation</li>
-              <li class="project__stack-item">Car Physics</li>
-
-            </ul>
-            
-            <a
-              href="https://play.google.com/store/apps/details?id=com.flamingo.carcrash3d"
-              aria-label="Store Page"
-              class="link link--icon"
-              target="_blank" rel="noopener noreferrer"
-            >
-              <i aria-hidden="true" class="fab fa-google-play"></i>
-            </a>
-
-          </div>
-          
-          <div class="project">
-            <h3>Curvy Splines Plugin</h3>
-            <div>
-              <a href="1x/roadGenerator.gif" target="_blank">
-                <img src="1x/roadGenerator.gif" class="img" >                
-              </a>
-           </div>
-            <p class="project__description">
-              Developed a non-destructive level editor using Curvy Splines asset pack. 
-            </p>
-
-            
-            <ul class="project__stack">
-              <li class="project__stack-item">Unity</li>
-              <li class="project__stack-item">CurvySplines</li>
-              <li class="project__stack-item">EditorScripting</li>
-            </ul>
-
-            <a
-            href="https://github.com/kubilayege/CurvySplinesPlugin"
-            aria-label="Github"
-            class="link link--icon"
-            target="_blank" rel="noopener noreferrer"
-            >
-            <i aria-hidden="true" class="fab fa-github"></i>
-            </a>
-          </div>
-
-          <div class="project">
-            <h3>Baby Boss Run</h3>
-            <div>
-              <video onmouseover="playVideo(this)" onmouseout="pauseVideo(this)" muted class="portfolio-video"  loop>
-                <source src="videos/Baby Boss Run.mp4#t=0.1" type="video/mp4" />
-                Your browser does not support the video tag.
-              </video>
-           </div>
-            <p class="project__description">
-              Developed a plugin for easy level generation tool using CurvySplines asset pack. Used unity animation rigging for the mechanical arm IK movement.   
-            </p>
-            
-            <ul class="project__stack">
-              <li class="project__stack-item">Unity</li>
-              <li class="project__stack-item">Animation Rigging</li>
-              <li class="project__stack-item">Editor Scripting</li>
-            </ul>
-            
-            <a
-              href="https://play.google.com/store/apps/details?id=com.flamingo.cubepuzzle3d"
-              aria-label="Store Page"
-              class="link link--icon"
-              target="_blank" rel="noopener noreferrer"
-            >
-              <i aria-hidden="true" class="fab fa-google-play"></i>
-            </a>
-
-          </div>
-          
-          
-
-          <div class="project">
-
-            <h3>Guess Song</h3>
-            <div>
-              <video onloadstart="this.volume=0.3" onmouseover="playVideo(this)" onmouseout="pauseVideo(this)" class="portfolio-video"  loop>
-                <source src="videos/Guess Song.mp4#t=1.13" type="video/mp4" />
-                Your browser does not support the video tag.
-              </video>
-           </div>
-            <p class="project__description">
-              Guess the song playing.
-            </p>
-
-            
-            <ul class="project__stack">
-              <li class="project__stack-item">Unity</li>
-              <li class="project__stack-item">Sound Analysis</li>
-            </ul>
-
-          </div>
-
-          <div class="project">
-            <h3>Skate Runner</h3>
-            <div>
-              <video onmouseover="playVideo(this)" onmouseout="pauseVideo(this)" muted class="portfolio-video"  loop>
-                <source src="videos/Cube Puzzle.mp4#t=2.13" type="video/mp4" />
-                Your browser does not support the video tag.
-              </video>
-           </div>
-            <p class="project__description">
-              First iteration of a level editor which was built on top of a spline asset pack. Spline mesh could be multiple part to create holes. Automatic object placement for the coins and the road part ends.
-            </p>
-
-            
-            <ul class="project__stack">
-              <li class="project__stack-item">Unity</li>
-              <li class="project__stack-item">CurvySplines</li>
-            </ul>
-        
-            <a
-              href="https://play.google.com/store/apps/details?id=com.flamingo.cubepuzzle3d"
-              aria-label="Store Page"
-              class="link link--icon"
-              target="_blank" rel="noopener noreferrer"
-            >
-              <i aria-hidden="true" class="fab fa-google-play"></i>
-            </a>
-
-          </div>
-
-          <div class="project">
-            <h3>Skate Runner</h3>
-            <div>
-              <video onmouseover="playVideo(this)" onmouseout="pauseVideo(this)" muted class="portfolio-video"  loop>
-                <source src="videos/Skate Runner.mp4#t=0.1" type="video/mp4" />
-                Your browser does not support the video tag.
-              </video>
-           </div>
-            <p class="project__description">
-              Race other skaters in a momentum based competition.
-            </p>
-
-            
-            <ul class="project__stack">
-              <li class="project__stack-item">Unity</li>
-              <li class="project__stack-item">Spline</li>
-              <li class="project__stack-item">Shader Graph</li>
-            </ul>
-        
-          </div>
-
-          <div class="project">
-            <h3>Restock!</h3>
-            <div>
-              <video onmouseover="playVideo(this)" onmouseout="pauseVideo(this)" muted class="portfolio-video"  loop>
-                <source src="videos/Restock.mp4#t=0.1" type="video/mp4" />
-                Your browser does not support the video tag.
-              </video>
-           </div>
-            <p class="project__description">
-              Carefully organise your items 
-              <br>and fit them the best way possible.
-            </p>
-
-            
-            <ul class="project__stack">
-              <li class="project__stack-item">Unity</li>
-              <li class="project__stack-item">PrefabVariants</li>
-              <li class="project__stack-item">BlendShapes</li>
-            </ul>
-
-            <a
-              href="https://play.google.com/store/apps/details?id=com.ddog.restockandroid"
-              aria-label="Store Page"
-              class="link link--icon"
-              target="_blank" rel="noopener noreferrer"
-            >
-              <i aria-hidden="true" class="fab fa-google-play"></i>
-            </a>
-        
-          </div>
-          <div class="project">
-            <h3>Draw Clone</h3>
-            <div>
-              <video muted class="portfolio-video" onmouseover="playVideo(this)" onmouseout="pauseVideo(this)" loop>
-                <source src="videos/DrawClone.mp4#t=0.1" type="video/mp4" />
-                Your browser does not support the video tag.
-              </video>
-            </div>
-
-            <p class="project__description">
-              Draw clever paths <br>depending on the environment! 
-            </p>
-            <ul class="project__stack">
-              <li class="project__stack-item">Unity</li>
-              <li class="project__stack-item">NavMeshComponents</li>
-            </ul>
-
-            <a
-              href="https://play.google.com/store/apps/details?id=com.ddog.drawcloneandroid"
-              aria-label="Store Page"
-              class="link link--icon"
-              target="_blank" rel="noopener noreferrer"
-            >
-              <i aria-hidden="true" class="fab fa-google-play"></i>
-            </a>
-        
-          </div>
-
-
-          <div class="project">
-            <h3>Clone Balls</h3>
-            <div>
-              <video   muted class="portfolio-video" onmouseover="playVideo(this)" onmouseout="pauseVideo(this)" loop>
-                <source src="videos/CloneBalls.mp4#t=0.1" type="video/mp4" />
-                Your browser does not support the video tag.
-              </video>
-            </div>
-
-            <p class="project__description">
-              Smash your way and carry as many<br> balls as you can to the next stage. 
-            </p>
-            <ul class="project__stack">
-              <li class="project__stack-item">Unity</li>
-              <li class="project__stack-item">MaterialPropertyBlocks</li>
-            </ul>
-
-            <a
-              href="https://play.google.com/store/apps/details?id=com.ddog.cloneballs"
-              aria-label="Store Page"
-              class="link link--icon"
-              target="_blank" rel="noopener noreferrer"
-            >
-              <i aria-hidden="true" class="fab fa-google-play"></i>
-            </a>
-        
-          </div>
-
-          <div class="project">
-            <h3>Chef Sweetie</h3>
-            <div>
-              <video   muted class="portfolio-video" onmouseover="playVideo(this)" onmouseout="pauseVideo(this)" loop>
-                <source src="videos/Chef Sweetie.mp4#t=0.1" type="video/mp4" />
-                Your browser does not support the video tag.
-              </video>
-            </div>
-
-            <p class="project__description">
-              Collect knives, slice sweets and collect points. 
-            </p>
-            <ul class="project__stack">
-              <li class="project__stack-item">Unity</li>
-              <li class="project__stack-item">PrefabVariants</li>
-              <li class="project__stack-item">BzKovSoft</li>
-            </ul>
-
-            <a
-              href="https://play.google.com/store/apps/details?id=com.ddog.chefsweetieandroid"
-              aria-label="Store Page"
-              class="link link--icon"
-              target="_blank" rel="noopener noreferrer"
-            >
-              <i aria-hidden="true" class="fab fa-google-play"></i>
-            </a>
-        
-          </div>
-
-          <div class="project">
-            <h3>Block Stacker</h3>
-            <div>
-              <video   muted class="portfolio-video" onmouseover="playVideo(this)" onmouseout="pauseVideo(this)" loop>
-                <source src="videos/Block Stacker.mp4#t=0.1" type="video/mp4" />
-                Your browser does not support the video tag.
-              </video>
-            </div>
-
-            <p class="project__description">
-              An original stacking game where <br> you can change the size of the arms! 
-            </p>
-            <ul class="project__stack">
-              <li class="project__stack-item">Unity</li>
-              <li class="project__stack-item">BlendShapes</li>
-              <li class="project__stack-item">CurvySplines</li>
-            </ul>
-
-            <a
-              href="https://play.google.com/store/apps/details?id=com.ddog.blockstackerandroid"
-              aria-label="Store Page"
-              class="link link--icon"
-              target="_blank" rel="noopener noreferrer"
-            >
-              <i aria-hidden="true" class="fab fa-google-play"></i>
-            </a>
-            <a
-              href="https://apps.apple.com/us/app/block-stacker-3d/id1565332800"
-              aria-label="Store Page"
-              class="link link--icon"
-              target="_blank" rel="noopener noreferrer"
-            >
-              <i aria-hidden="true" class="fab fa-app-store-ios"></i>
-            </a>
-        
-          </div>
-
-          <div class="project">
-            <h3>Magic Master 3D</h3>
-            <div>
-              <video   muted class="portfolio-video" onmouseover="playVideo(this)" onmouseout="pauseVideo(this)" loop>
-                <source src="videos/Magic Master 3D.mp4#t=0.1" type="video/mp4" />
-                Your browser does not support the video tag.
-              </video>
-            </div>
-
-            <p class="project__description">
-              Use various spells and defeat your opponents! 
-            </p>
-            <ul class="project__stack">
-              <li class="project__stack-item">Unity</li>
-              <li class="project__stack-item">CurvySplines</li>
-            </ul>
-
-            <a
-              href="https://play.google.com/store/apps/details?id=com.ddog.magicmasterandroid"
-              aria-label="Store Page"
-              class="link link--icon"
-              target="_blank" rel="noopener noreferrer"
-            >
-              <i aria-hidden="true" class="fab fa-google-play"></i>
-            </a>
-            <a
-              href="https://apps.apple.com/us/app/magic-master-3d/id1558469770"
-              aria-label="Store Page"
-              class="link link--icon"
-              target="_blank" rel="noopener noreferrer"
-            >
-              <i aria-hidden="true" class="fab fa-app-store-ios"></i>
-            </a>
-        
-          </div>
-
-          <div class="project">
-            <h3>Magic Art 3D</h3>
-            <div>
-              <video   muted class="portfolio-video" onmouseover="playVideo(this)" onmouseout="pauseVideo(this)" loop>
-                <source src="videos/Magic Art 3D.mp4#t=0.1" type="video/mp4" />
-                Your browser does not support the video tag.
-              </video>
-            </div>
-
-            <p class="project__description">
-              Complete orders, sell paintings and earn money! 
-            </p>
-            <ul class="project__stack">
-              <li class="project__stack-item">Unity</li>
-              <li class="project__stack-item">ScriptableObjects</li>
-            </ul>
-
-            <a
-              href="https://apps.apple.com/us/app/magic-art-3d/id1561808273"
-              aria-label="Store Page"
-              class="link link--icon"
-              target="_blank" rel="noopener noreferrer"
-            >
-              <i aria-hidden="true" class="fab fa-app-store-ios"></i>
-            </a>
-        
-          </div>
-
-          <div class="project">
-            <h3>Agent Rubberhand</h3>
-            <div>
-              <video   muted class="portfolio-video" onmouseover="playVideo(this)" onmouseout="pauseVideo(this)" loop>
-                <source src="videos/Agent RubberHand.mp4#t=0.1" type="video/mp4" />
-                Your browser does not support the video tag.
-              </video>
-            </div>
-
-            <p class="project__description">
-              Drag your body, smash everything,<br> grab weapons, shoot & punch! 
-            </p>
-            <ul class="project__stack">
-              <li class="project__stack-item">Unity</li>
-              <li class="project__stack-item">ObiRope</li>
-            </ul>
-
-            <a
-              href="https://apps.apple.com/us/app/agent-rubberhand/id1552187611"
-              aria-label="Store Page"
-              class="link link--icon"
-              target="_blank" rel="noopener noreferrer"
-            >
-              <i aria-hidden="true" class="fab fa-app-store-ios"></i>
-            </a>
-        
-          </div>
-
-          <div class="project">
-            <h3>Worlds Hardest Run </h3>
-            <div>
-              <video   muted class="portfolio-video" onmouseover="playVideo(this)" onmouseout="pauseVideo(this)" loop>
-                <source src="videos/Spline Draw.mp4#t=0.1" type="video/mp4" />
-                Your browser does not support the video tag.
-              </video>
-            </div>
-
-            <p class="project__description">
-              Drag spline freely to form your path real-time. Get to the finish. 
-            </p>
-            <ul class="project__stack">
-              <li class="project__stack-item">Unity</li>
-              <li class="project__stack-item">CurvySplines</li>
-            </ul>
-
-            <a
-              href="https://apps.apple.com/us/app/worlds-hardest-run/id1543699574"
-              aria-label="Store Page"
-              class="link link--icon"
-              target="_blank" rel="noopener noreferrer"
-            >
-              <i aria-hidden="true" class="fab fa-app-store-ios"></i>
-            </a>
-
-            <a
-              href="https://riwmd.itch.io/spline-drag"
-              aria-label="Store Page"
-              class="link link--icon"
-              target="_blank" rel="noopener noreferrer"
-            >
-             <i aria-hidden="true" class="fab fa-itch-io"></i>
-            </a>
-        
-          </div>
-
-          <div class="project">
-            <h3>Jelly Mania Blast </h3>
-            <div>
-              <video   muted class="portfolio-video" 
-              onmouseover="playVideo(this)" onmouseout="pauseVideo(this)" loop>
-                <source src="videos/jellymania.mp4#t=0.1" type="video/mp4" />
-                Your browser does not support the video tag.
-              </video>
-            </div>
-
-            <p class="project__description">
-              Pop the jellies strategically to fulfill your mission! 
-            </p>
-            <ul class="project__stack">
-              <li class="project__stack-item">Unity</li>
-              <li class="project__stack-item">Metaballs</li>
-            </ul>
-
-            <a
-              href="https://apps.apple.com/us/app/jelly-mania-blast/id1541338200"
-              aria-label="Store Page"
-              class="link link--icon"
-              target="_blank" rel="noopener noreferrer"
-            >
-              <i aria-hidden="true" class="fab fa-app-store-ios"></i>
-            </a>
-        
-          </div>
-
-          <div class="project">
-            <h3>Animals and Puzzles</h3>
-            <div>
-              <video   muted class="portfolio-video" onmouseover="playVideo(this)" onmouseout="pauseVideo(this)" loop>
-                <source src="videos/AnimalsandPuzzles.mp4#t=0.1" type="video/mp4" />
-                Your browser does not support the video tag.
-              </video>
-            </div>
-
-            <p class="project__description">
-              Save animals with <br> sudoku rules. 
-            </p>
-            <ul class="project__stack">
-              <li class="project__stack-item">Unity</li>
-              <li class="project__stack-item">C#</li>
-            </ul>
-
-            <a
-              href="https://github.com/kubilayege/Untitled-Puzzle-Game"
-              aria-label="Source Code"
-              class="link link--icon"
-              target="_blank" rel="noopener noreferrer"
-            >
-              <i aria-hidden="true" class="fab fa-github"></i>
-            </a>
-
-            <a
-              href="https://github.com/kubilayege/Untitled-Puzzle-Game/releases/tag/v0.0.15"
-              aria-label="APK"
-              class="link link--icon"
-              target="_blank" rel="noopener noreferrer"
-            >
-              <i aria-hidden="true" class="fas fa-download"></i>
-            </a>
-        
-          </div>
-
-          <div class="project">
-            <h3>Wheel Smash 3D!</h3>
-            <div>
-              <video   muted class="portfolio-video" onmouseover="playVideo(this)" onmouseout="pauseVideo(this)" loop>
-                <source src="videos/Wheel Smash 3D!.mp4#t=0.1" type="video/mp4" />
-                Your browser does not support the video tag.
-              </video>
-            </div>
-
-            <p class="project__description">
-              Collect subscribers<br> by crushing objects. 
-            </p>
-            <ul class="project__stack">
-              <li class="project__stack-item">Unity</li>
-              <li class="project__stack-item">VertexMotion</li>
-            </ul>
-
-            <a
-              href="https://apps.apple.com/US/app/id1489937734?l=en"
-              aria-label="Source Code"
-              class="link link--icon"
-              target="_blank" rel="noopener noreferrer"
-            >
-              <i aria-hidden="true" class="fab fa-app-store-ios"></i>
-            </a>
-        
-          </div>
-
+        <div class="reel" aria-hidden="true">
+          <div class="reel__track" id="reel-track"></div>
         </div>
       </section>
 
-      <!-- Skills
-      <section class="section skills" id="skills">
-        <h2 class="section__title">Skills</h2>
-        <ul class="skills__list">
-          <li class="skills__list-item btn btn--plain">HTML</li>
-          <li class="skills__list-item btn btn--plain">CSS</li>
-          <li class="skills__list-item btn btn--plain">SCSS</li>
-          <li class="skills__list-item btn btn--plain">JavaScript</li>
-          <li class="skills__list-item btn btn--plain">TypeScript</li>
-          <li class="skills__list-item btn btn--plain">React</li>
-          <li class="skills__list-item btn btn--plain">Redux</li>
-          <li class="skills__list-item btn btn--plain">Git</li>
-          <li class="skills__list-item btn btn--plain">Material UI</li>
-          <li class="skills__list-item btn btn--plain">Jest</li>
-          <li class="skills__list-item btn btn--plain">Enzyme</li>
-          <li class="skills__list-item btn btn--plain">CI/CD</li>
-        </ul>
-      </section> -->
+      <section class="section" id="now" aria-labelledby="now-title">
+        <header class="section__head">
+          <p class="eyebrow"><span class="live-dot" aria-hidden="true"></span>Since March 2024</p>
+          <h2 class="section__title" id="now-title">Now at Joygame Publishing</h2>
+          <p class="section__intro">
+            I work across the Live Games and New Games teams, and on what sits around the games: the
+            pipelines, foundations, team tools and agent workflows that let every project ship the same way.
+          </p>
+        </header>
+        <div class="now-grid" id="now-grid"></div>
+      </section>
 
-      <!-- Contact -->
-      <section class="section contact center" id="contact">
-        <h2 class="section__title">Contact</h2>
-        <a href="mailto:kubilayege95@gmail.com">
-          <span class="btn btn--outline">Email me</span>
-        </a>
-        <div class="contact__links center">
-          <a
-            href="https://github.com/kubilayege"
-            aria-label="github"
-            class="link link--icon"
-            target="_blank" rel="noopener noreferrer"
-          >
-            <i aria-hidden="true" class="fab fa-github"></i>
-          </a>
-          <a
-            href="https://www.linkedin.com/in/kubilay-ege-17381011b/"
-            aria-label="linkedin"
-            class="link link--icon"
-            target="_blank" rel="noopener noreferrer"
-          >
-            <i aria-hidden="true" class="fab fa-linkedin"></i>
-          </a>
+      <section class="section" id="games" aria-labelledby="games-title">
+        <header class="section__head section__head--split">
+          <div>
+            <h2 class="section__title" id="games-title">Games</h2>
+            <p class="section__intro" id="games-hint">Hover a card to play the capture. Open one for the details.</p>
+          </div>
+          <div class="filters" id="game-filters" role="group" aria-label="Filter games by studio"></div>
+        </header>
+        <div class="card-grid" id="games-grid"></div>
+      </section>
+
+      <section class="section" id="tools" aria-labelledby="tools-title">
+        <header class="section__head">
+          <h2 class="section__title" id="tools-title">Tools &amp; prototypes</h2>
+          <p class="section__intro">Editor tooling, backend services and prototypes built to answer a technical question.</p>
+        </header>
+        <div class="card-grid" id="tools-grid"></div>
+      </section>
+
+      <section class="section" id="experience" aria-labelledby="experience-title">
+        <header class="section__head">
+          <h2 class="section__title" id="experience-title">Experience</h2>
+        </header>
+        <ol class="timeline" id="timeline"></ol>
+
+        <div class="skills">
+          <h3 class="skills__title">Skills</h3>
+          <ul class="skills__list" id="skills"></ul>
         </div>
+      </section>
+
+      <section class="section contact" id="contact" aria-labelledby="contact-title">
+        <h2 class="contact__title" id="contact-title">Let's build something.</h2>
+        <p class="contact__text">Open to conversations about games, tooling and build pipelines.</p>
+        <a class="contact__email" href="mailto:kubilayege95@gmail.com">kubilayege95@gmail.com</a>
+        <ul class="contact__links">
+          <li><a href="https://github.com/kubilayege" target="_blank" rel="noopener noreferrer">GitHub ↗</a></li>
+          <li><a href="https://www.linkedin.com/in/kubilay-ege-17381011b/" target="_blank" rel="noopener noreferrer">LinkedIn ↗</a></li>
+        </ul>
       </section>
     </main>
 
-    <div class="scroll-container">
-    <div class="scroll-top">
-      <a aria-label="Scroll up" href="#top">
-        <i aria-hidden="true" class="fas fa-arrow-up"></i>
-      </a>
-    </div>
-    </div>
+    <footer class="footer">
+      <span>© <span id="year"></span> Kubilay Ege</span>
+      <a href="#top">Back to top ↑</a>
+    </footer>
 
-    <div class="lightbox" id="lightbox" aria-hidden="true" role="dialog" aria-modal="true">
-      <div class="lightbox__content">
-        <button type="button" class="btn btn--icon lightbox__close" aria-label="Close preview">
-          <i aria-hidden="true" class="fas fa-times"></i>
-        </button>
-        <div id="lightbox-media"></div>
-        <div class="lightbox__caption" id="lightbox-caption"></div>
+    <dialog class="inspector" id="inspector" aria-labelledby="inspector-title">
+      <div class="inspector__media" id="inspector-media"></div>
+      <div class="inspector__panel">
+        <div class="inspector__bar">
+          <span class="inspector__tab">Inspector</span>
+          <div class="inspector__nav">
+            <button class="icon-btn" type="button" data-step="-1" aria-label="Previous project">←</button>
+            <button class="icon-btn" type="button" data-step="1" aria-label="Next project">→</button>
+            <button class="icon-btn" type="button" id="inspector-close" aria-label="Close" autofocus>✕</button>
+          </div>
+        </div>
+        <div class="inspector__body" id="inspector-body"></div>
       </div>
-    </div>
+    </dialog>
 
-    <script src="./script.js"></script>
+    <script src="projects.js"></script>
+    <script src="script.js"></script>
   </body>
 </html>

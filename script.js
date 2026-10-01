@@ -1,212 +1,368 @@
-const body = document.body
+const root = document.documentElement
+const $ = (sel, el = document) => el.querySelector(sel)
 
-const addThemeClass = (bodyClass) => {
-	body.classList.add(bodyClass)
+const h = (tag, attrs = {}, ...children) => {
+	const el = document.createElement(tag)
+	for (const [k, v] of Object.entries(attrs)) {
+		if (v == null || v === false) continue
+		if (k === 'class') el.className = v
+		else if (k === 'text') el.textContent = v
+		else if (k.startsWith('on')) el.addEventListener(k.slice(2), v)
+		else el.setAttribute(k, v === true ? '' : v)
+	}
+	el.append(...compact(children))
+	return el
 }
 
-const storedBodyTheme = localStorage.getItem('portfolio-theme')
-if (storedBodyTheme) {
-	addThemeClass(storedBodyTheme)
-} else {
-	const systemPrefersDark = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches
-	addThemeClass(systemPrefersDark ? 'dark' : 'light')
+// Drop the falsy leftovers of `cond && node` so they never render as text.
+function compact(nodes) {
+	return nodes.flat().filter(c => c != null && c !== false && c !== 0 && c !== '')
 }
 
-const scrollUp = () => {
-	const btnScrollTop = document.querySelector('.scroll-top')
+const studioName = key => STUDIOS[key]?.name ?? ''
+const studioShort = key => STUDIOS[key]?.short ?? ''
+const bySlug = Object.fromEntries(PROJECTS.map(p => [p.slug, p]))
+const games = PROJECTS.filter(p => p.kind === 'game')
+const tools = PROJECTS.filter(p => p.kind === 'tool')
 
-	if (
-		body.scrollTop > 500 ||
-		document.documentElement.scrollTop > 500
-	) {
-		btnScrollTop.style.display = 'block'
+/* ---------- Theme ---------- */
+
+const themeToggle = $('#theme-toggle')
+const syncThemeLabel = () => {
+	const next = root.dataset.theme === 'dark' ? 'light' : 'dark'
+	themeToggle.setAttribute('aria-label', `Switch to ${next} theme`)
+}
+themeToggle.addEventListener('click', () => {
+	root.dataset.theme = root.dataset.theme === 'dark' ? 'light' : 'dark'
+	localStorage.setItem('portfolio-theme', root.dataset.theme)
+	syncThemeLabel()
+})
+syncThemeLabel()
+
+/* ---------- Header & nav ---------- */
+
+const header = $('#header')
+const onScroll = () => header.classList.toggle('header--scrolled', window.scrollY > 8)
+window.addEventListener('scroll', onScroll, { passive: true })
+onScroll()
+
+const navLinks = [...document.querySelectorAll('.nav__link')]
+const sectionObserver = new IntersectionObserver(entries => {
+	entries.forEach(({ isIntersecting, target }) => {
+		if (!isIntersecting) return
+		navLinks.forEach(l => {
+			if (l.hash === `#${target.id}`) l.setAttribute('aria-current', 'true')
+			else l.removeAttribute('aria-current')
+		})
+	})
+}, { rootMargin: '-45% 0px -50% 0px' })
+navLinks.forEach(l => {
+	const section = document.getElementById(l.hash.slice(1))
+	if (section) sectionObserver.observe(section)
+})
+
+/* ---------- Hero reel ---------- */
+
+const reelTrack = $('#reel-track')
+const reelItems = games.filter(p => p.media.poster)
+// Two copies so the -50% keyframe loops seamlessly.
+;[...reelItems, ...reelItems].forEach(p => {
+	reelTrack.append(
+		h('a', { class: 'reel__item', href: `#game/${p.slug}`, tabindex: '-1' },
+			h('img', { src: p.media.poster, alt: '', loading: 'lazy', decoding: 'async' }))
+	)
+})
+
+/* ---------- Now (Joygame) ---------- */
+
+$('#now-grid').append(...NOW.map(m =>
+	h('article', { class: 'module' },
+		h('p', { class: 'module__label', text: m.label }),
+		h('h3', { class: 'module__title', text: m.title }),
+		h('p', { class: 'module__text', text: m.text }),
+		m.tags?.length && h('ul', { class: 'tags' }, m.tags.map(t => h('li', { class: 'tag', text: t })))
+	)
+))
+
+/* ---------- Cards ---------- */
+
+const canHover = matchMedia('(hover: hover) and (pointer: fine)').matches
+if (!canHover) $('#games-hint').textContent = 'Tap a game to watch the capture and read the details.'
+
+const cardMeta = p => {
+	const parts = p.kind === 'game'
+		? [studioShort(p.studio), p.year, p.genre?.split(' · ')[0]]
+		: [p.genre, p.year]
+	return parts.filter(Boolean).join(' · ')
+}
+
+const startPreview = card => {
+	const v = $('video', card)
+	if (!v) return
+	if (!v.src) v.src = v.dataset.src
+	v.play().then(() => card.classList.add('card--playing')).catch(() => {})
+}
+
+const stopPreview = card => {
+	const v = $('video', card)
+	if (!v) return
+	v.pause()
+	card.classList.remove('card--playing')
+}
+
+const renderCard = p => {
+	const { media } = p
+	const mediaEl = h('div', { class: `card__media${media.fit === 'contain' ? ' card__media--contain' : ''}` },
+		h('span', { class: 'card__badge', text: 'Playing' }),
+		h('img', { src: media.poster || media.image, alt: '', loading: 'lazy', decoding: 'async' }),
+		media.video && canHover && h('video', { 'data-src': media.video, loop: true, playsinline: true, preload: 'none' })
+	)
+	const preview = $('video', mediaEl)
+	if (preview) preview.muted = true
+	const card = h('article', { class: 'card', 'data-studio': p.studio },
+		mediaEl,
+		h('div', { class: 'card__body' },
+			h('h3', { class: 'card__title' },
+				h('a', { class: 'card__link', href: `#${p.kind}/${p.slug}`, text: p.title })),
+			h('p', { class: 'card__meta', text: cardMeta(p) }),
+			h('p', { class: 'card__tagline', text: p.tagline })
+		)
+	)
+	if (media.video && canHover) {
+		card.addEventListener('pointerenter', () => startPreview(card))
+		card.addEventListener('pointerleave', () => stopPreview(card))
+	}
+	return card
+}
+
+const gamesGrid = $('#games-grid')
+const toolsGrid = $('#tools-grid')
+const gameCards = games.map(p => [p, renderCard(p)])
+gamesGrid.append(...gameCards.map(([, c]) => c))
+toolsGrid.append(...tools.map(renderCard))
+
+// Never keep a preview running off-screen.
+const offscreen = new IntersectionObserver(entries => {
+	entries.forEach(({ isIntersecting, target }) => { if (!isIntersecting) stopPreview(target) })
+})
+document.querySelectorAll('.card').forEach(c => offscreen.observe(c))
+
+/* ---------- Studio filter ---------- */
+
+let activeStudio = 'all'
+const filters = $('#game-filters')
+const studioKeys = Object.keys(STUDIOS).filter(k => games.some(g => g.studio === k))
+
+const setFilter = key => {
+	activeStudio = key
+	filters.querySelectorAll('.filter').forEach(b => b.setAttribute('aria-pressed', String(b.dataset.studio === key)))
+	gameCards.forEach(([p, c]) => { c.hidden = key !== 'all' && p.studio !== key })
+}
+
+const filterButton = (key, label, count) =>
+	h('button', { class: 'filter', type: 'button', 'data-studio': key, 'aria-pressed': 'false', onclick: () => setFilter(key) },
+		label, h('span', { class: 'filter__count', text: count }))
+
+filters.append(
+	filterButton('all', 'All', games.length),
+	...studioKeys.map(k => filterButton(k, studioShort(k), games.filter(g => g.studio === k).length))
+)
+setFilter('all')
+
+/* ---------- Experience ---------- */
+
+$('#timeline').append(...EXPERIENCE.map(r => {
+	const count = r.studio ? games.filter(g => g.studio === r.studio).length : 0
+	const jump = r.jump
+		? h('a', { class: 'role__jump', href: r.jump, text: 'What I work on now →' })
+		: count > 0 && h('a', {
+			class: 'role__jump',
+			href: '#games',
+			text: `See ${count} ${count === 1 ? 'game' : 'games'} →`,
+			onclick: () => setFilter(r.studio),
+		})
+	return h('li', { class: 'role' },
+		h('p', { class: 'role__when' }, r.when, h('br'), r.where),
+		h('div', {},
+			h('div', { class: 'role__head' },
+				h('h3', { class: 'role__org', text: r.org || studioName(r.studio) }),
+				h('span', { class: 'role__title', text: r.title })),
+			h('ul', { class: 'role__points' }, r.points.map(t => h('li', { text: t }))),
+			jump
+		)
+	)
+}))
+
+$('#skills').append(...SKILLS.map(s => h('li', { text: s })))
+$('.skills').append(h('p', { class: 'note', style: 'margin-top:1rem' }, `Languages: ${LANGUAGES.join(', ')}`))
+$('#year').textContent = new Date().getFullYear()
+
+/* ---------- Inspector ---------- */
+
+const inspector = $('#inspector')
+const inspectorMedia = $('#inspector-media')
+const inspectorBody = $('#inspector-body')
+let current = null
+
+const LINK_LABELS = {
+	github: 'Source on GitHub',
+	play: 'Google Play',
+	appstore: 'App Store',
+	itch: 'itch.io',
+	download: 'Download APK',
+	npm: 'npm package',
+	releases: 'Download (GitHub Releases)',
+}
+
+const component = (title, ...content) =>
+	h('details', { class: 'component', open: true },
+		h('summary', {}, h('span', { class: 'component__icon', 'aria-hidden': 'true', text: '#' }), title),
+		h('div', { class: 'component__content' }, ...content))
+
+const prop = (label, value) => value && h('div', { class: 'prop' }, h('dt', { text: label }), h('dd', { text: value }))
+
+const renderInspector = p => {
+	inspector.classList.toggle('inspector--wide', !!p.media.wide)
+	inspectorMedia.replaceChildren()
+	if (p.media.video) {
+		const hasSound = p.media.audio && navigator.userActivation?.hasBeenActive !== false
+		const v = h('video', {
+			src: p.media.video,
+			poster: p.media.poster,
+			controls: true,
+			loop: true,
+			playsinline: true,
+			preload: 'auto',
+			'aria-label': `${p.title} gameplay capture`,
+		})
+		v.muted = !hasSound
+		v.volume = 0.4
+		inspectorMedia.append(v)
+		v.play().catch(() => { v.muted = true; v.play().catch(() => {}) })
 	} else {
-		btnScrollTop.style.display = 'none'
-	}
-}
-
-document.addEventListener('scroll', scrollUp, { passive: true })
-
-document.querySelectorAll('img').forEach(img => {
-	if (!('loading' in HTMLImageElement.prototype)) return
-	img.loading = 'lazy'
-})
-
-document.querySelectorAll('video').forEach(v => {
-	v.preload = 'metadata'
-	v.setAttribute('playsinline', '')
-	v.setAttribute('webkit-playsinline', '')
-})
-
-if ('IntersectionObserver' in window) {
-	const observer = new IntersectionObserver((entries) => {
-		entries.forEach(({ isIntersecting, target }) => {
-			if (!isIntersecting) {
-				target.pause()
-				target.controls = false
-			}
-		})
-	}, { root: null, threshold: 0.01 })
-	
-	document.querySelectorAll('video').forEach(v => observer.observe(v))
-}
-
-const header = document.querySelector('.header')
-const toggleHeaderBg = () => {
-	const y = window.scrollY || document.documentElement.scrollTop
-	header.classList.toggle('header--scrolled', y > 10)
-}
-window.addEventListener('scroll', toggleHeaderBg, { passive: true })
-
-toggleHeaderBg()
-
-const progressBar = document.getElementById('scroll-progress')
-const updateProgress = () => {
-	const scrollTop = window.scrollY || document.documentElement.scrollTop
-	const docHeight = document.documentElement.scrollHeight - document.documentElement.clientHeight
-	const progress = docHeight > 0 ? (scrollTop / docHeight) * 100 : 0
-	progressBar.style.width = progress + '%'
-}
-window.addEventListener('scroll', updateProgress, { passive: true })
-updateProgress()
-
-const nav = document.querySelector('.nav')
-const navIndicator = document.querySelector('.nav__indicator')
-const navLinks = Array.from(document.querySelectorAll('.nav__list .link--nav'))
-
-const setIndicatorToLink = (link) => {
-	const rect = link.getBoundingClientRect()
-	const navRect = nav.getBoundingClientRect()
-	navIndicator.style.width = rect.width + 'px'
-	navIndicator.style.left = (rect.left - navRect.left) + 'px'
-}
-
-navLinks.forEach(l => l.addEventListener('mouseenter', () => setIndicatorToLink(l)))
-nav.addEventListener('mouseleave', () => {
-	updateActiveSection()
-})
-
-const sections = [
-	{ id: 'about', link: navLinks.find(l => l.getAttribute('href') === '#about') },
-	{ id: 'projects', link: navLinks.find(l => l.getAttribute('href') === '#projects') },
-	{ id: 'contact', link: navLinks.find(l => l.getAttribute('href') === '#contact') }
-].filter(s => s.link)
-
-const sectionEntries = sections.map(s => ({ ...s, el: document.getElementById(s.id) })).filter(e => e.el)
-
-let manualIndicatorUntil = 0
-const nowTs = () => Date.now()
-const isManualActive = () => nowTs() < manualIndicatorUntil
-const setManualIndicator = (link) => {
-	setIndicatorToLink(link)
-	manualIndicatorUntil = nowTs() + 1500
-}
-
-const updateActiveSection = () => {
-	if (isManualActive()) return
-	const scrollYVal = window.scrollY || document.documentElement.scrollTop
-	const headerH = header.offsetHeight || 0
-	const viewportMid = scrollYVal + headerH + (window.innerHeight - headerH) / 2
-	let active = null
-	let bestDistance = Infinity
-	sectionEntries.forEach(e => {
-		const top = e.el.offsetTop
-		const bottom = top + e.el.offsetHeight
-		let distance = 0
-		if (viewportMid < top) distance = top - viewportMid
-		else if (viewportMid > bottom) distance = viewportMid - bottom
-		else distance = 0
-		if (distance <= bestDistance) {
-			bestDistance = distance
-			active = e
+		const shots = p.media.images || [{ src: p.media.image, caption: 'screenshot' }]
+		const zoom = h('a', { class: 'inspector__zoom', target: '_blank', rel: 'noopener' }, h('img'))
+		const select = i => {
+			const { src, caption } = shots[i]
+			zoom.href = src
+			zoom.setAttribute('aria-label', `Open ${p.title} ${caption} full size`)
+			Object.assign($('img', zoom), { src, alt: `${p.title}: ${caption}` })
+			thumbs?.querySelectorAll('button').forEach((b, j) => {
+				b.setAttribute('aria-pressed', String(i === j))
+				if (i === j) b.scrollIntoView({ block: 'nearest', inline: 'nearest' })
+			})
 		}
-	})
-	if (active) setIndicatorToLink(active.link)
+		const thumbs = shots.length > 1 ? h('div', { class: 'gallery', role: 'group', 'aria-label': 'Screenshots' },
+			shots.map((s, i) => h('button', { type: 'button', class: 'gallery__thumb', 'aria-label': s.caption, title: s.caption, onclick: () => select(i) },
+				h('img', { src: s.src, alt: '', loading: 'lazy' })))) : null
+		inspectorMedia.append(...compact([zoom, thumbs]))
+		select(0)
+	}
+
+	const studio = studioName(p.studio)
+	const status = p.delisted ? 'No longer on the stores' : null
+	const links = p.links || []
+
+	inspectorBody.replaceChildren(...compact([
+		h('div', { class: 'inspector__header' },
+			h('p', { class: 'inspector__kind', text: p.kind === 'game' ? 'Game' : /^Prototype/.test(p.genre || '') ? 'Prototype' : 'Tool' }),
+			h('h2', { class: 'inspector__title', id: 'inspector-title', text: p.title }),
+			h('p', { class: 'inspector__tagline', text: p.tagline })
+		),
+		component(p.kind === 'game' ? 'Game' : 'Project',
+			h('dl', { class: 'props' },
+				prop('Studio', studio),
+				prop('Year', p.year && String(p.year)),
+				prop('Genre', p.genre),
+				prop('Platforms', p.platforms?.join(', ')),
+				(p.facts || []).map(f => prop(f.label, f.value)),
+				prop('Status', status)
+			),
+			h('p', { text: p.about })
+		),
+		p.built?.length && component('What I built',
+			h('ul', { class: 'bullets' }, p.built.map(b => h('li', { text: b })))),
+		p.stack?.length && component('Stack',
+			h('ul', { class: 'tags' }, p.stack.map(t => h('li', { class: 'tag', text: t })))),
+		links.length > 0 && component('Links',
+			h('div', { class: 'links' }, links.map(l =>
+				h('a', { href: l.url, target: '_blank', rel: 'noopener noreferrer', text: `${LINK_LABELS[l.type] || 'Link'} ↗` }))))
+	]))
+	inspectorBody.scrollTop = 0
 }
 
-window.addEventListener('scroll', updateActiveSection, { passive: true })
-window.addEventListener('resize', updateActiveSection)
-updateActiveSection()
+// Prev/next walks the list the project came from, respecting the studio filter.
+const siblings = p => p.kind === 'game'
+	? games.filter(g => activeStudio === 'all' || g.studio === activeStudio || g === p)
+	: tools
 
-window.addEventListener('hashchange', () => {
-	const h = location.hash
-	if (!h) return
-	const l = navLinks.find(l => l.getAttribute('href') === h)
-	if (l) setManualIndicator(l)
-})
+const step = dir => {
+	if (!current) return
+	const list = siblings(current)
+	const next = list[(list.indexOf(current) + dir + list.length) % list.length]
+	history.replaceState(history.state, '', `#${next.kind}/${next.slug}`)
+	show(next)
+}
 
-navLinks.forEach(l => l.addEventListener('click', () => setManualIndicator(l)))
-
-function playVideo(video) {  
-    const playPromise = video.play()
-	video.controls = true
-	if (playPromise && typeof playPromise.then === 'function') {
-		playPromise.catch(() => {})
+const show = p => {
+	current = p
+	renderInspector(p)
+	if (!inspector.open) {
+		inspector.showModal()
+		document.body.style.overflow = 'hidden'
 	}
 }
 
-function pauseVideo(video) {  
-    video.pause()
-	video.controls = false
+const hide = () => {
+	inspectorMedia.querySelector('video')?.pause()
+	inspectorMedia.replaceChildren()
+	current = null
+	if (inspector.open) inspector.close()
+	document.body.style.overflow = ''
 }
 
-document.addEventListener('scroll', scrollUp, { passive: true })
+const projectFromHash = () => {
+	const m = location.hash.match(/^#(?:game|tool)\/([\w-]+)$/)
+	return m ? bySlug[m[1]] : null
+}
 
-document.querySelectorAll('video').forEach(v => {
-	v.preload = 'metadata'
-	v.setAttribute('playsinline', '')
-	v.setAttribute('webkit-playsinline', '')
-})
+const syncFromHash = () => {
+	const p = projectFromHash()
+	if (p) show(p)
+	else if (inspector.open) hide()
+}
 
-const lightbox = document.getElementById('lightbox')
-const lightboxMedia = document.getElementById('lightbox-media')
-const lightboxCaption = document.getElementById('lightbox-caption')
-const lightboxClose = document.querySelector('.lightbox__close')
-
-const openLightbox = (node, captionText) => {
-	while (lightboxMedia.firstChild) lightboxMedia.removeChild(lightboxMedia.firstChild)
-	const clone = node.cloneNode(true)
-	clone.removeAttribute('onmouseover')
-	clone.removeAttribute('onmouseout')
-	clone.classList.add('lightbox__media')
-	if (clone.tagName.toLowerCase() === 'video') {
-		clone.muted = false
-		clone.controls = true
-		clone.loop = true
-		clone.preload = 'auto'
-		clone.play().catch(() => {})
+// Clear the project hash on close without leaving a dead history entry behind.
+const closeInspector = () => {
+	if (history.state?.inspector) history.back()
+	else {
+		history.replaceState(null, '', location.pathname + location.search)
+		hide()
 	}
-	lightboxMedia.appendChild(clone)
-	lightboxCaption.textContent = captionText || ''
-	lightbox.classList.add('lightbox--open')
-	lightbox.setAttribute('aria-hidden', 'false')
-	body.style.overflow = 'hidden'
 }
 
-const closeLightbox = () => {
-	const media = lightboxMedia.querySelector('video')
-	if (media) media.pause()
-	lightbox.classList.remove('lightbox--open')
-	lightbox.setAttribute('aria-hidden', 'true')
-	body.style.overflow = ''
-}
-
-lightboxClose.addEventListener('click', closeLightbox)
-lightbox.addEventListener('click', (e) => {
-	if (e.target === lightbox) closeLightbox()
+document.addEventListener('click', e => {
+	const a = e.target.closest('a[href^="#game/"], a[href^="#tool/"]')
+	if (!a || e.metaKey || e.ctrlKey || e.shiftKey) return
+	e.preventDefault()
+	const p = bySlug[a.hash.split('/')[1]]
+	if (!p) return
+	if (inspector.open) history.replaceState(history.state, '', a.hash)
+	else history.pushState({ inspector: true }, '', a.hash)
+	show(p)
 })
 
-document.addEventListener('keydown', (e) => {
-	if (e.key === 'Escape' && lightbox.classList.contains('lightbox--open')) closeLightbox()
+window.addEventListener('popstate', syncFromHash)
+window.addEventListener('hashchange', syncFromHash)
+
+$('#inspector-close').addEventListener('click', closeInspector)
+inspector.querySelectorAll('[data-step]').forEach(b => b.addEventListener('click', () => step(Number(b.dataset.step))))
+inspector.addEventListener('cancel', e => { e.preventDefault(); closeInspector() })
+inspector.addEventListener('click', e => { if (e.target === inspector) closeInspector() })
+inspector.addEventListener('keydown', e => {
+	if (e.target.closest('video')) return
+	if (e.key === 'ArrowRight') step(1)
+	if (e.key === 'ArrowLeft') step(-1)
 })
 
-Array.from(document.querySelectorAll('.project')).forEach(project => {
-	const title = project.querySelector('h3')?.textContent?.trim() || ''
-	project.querySelectorAll('video, img').forEach(media => {
-		media.style.cursor = 'zoom-in'
-		media.addEventListener('click', (e) => {
-			e.preventDefault()
-			openLightbox(media, title)
-		})
-	})
-})
+syncFromHash()
