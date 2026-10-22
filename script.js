@@ -212,6 +212,7 @@ const LINK_LABELS = {
 	download: 'Download APK',
 	npm: 'npm package',
 	releases: 'Download (GitHub Releases)',
+	live: 'Open the live app',
 }
 
 const component = (title, ...content) =>

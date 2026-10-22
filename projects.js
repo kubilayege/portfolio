@@ -7,7 +7,7 @@
 //   studio      key into STUDIOS
 //   media       { video, poster, audio } or { image }; add fit: 'contain' for screenshots
 //   facts       extra Inspector rows, e.g. { label: 'Installs', value: '1M+' }
-//   links       { type: 'github' | 'npm' | 'releases' | 'play' | 'appstore' | 'itch' | 'download', url }
+//   links       { type: 'github' | 'npm' | 'releases' | 'live' | 'play' | 'appstore' | 'itch' | 'download', url }
 //   delisted    true when the store pages are gone; shown instead of dead store links
 
 const STUDIOS = {
@@ -515,6 +515,41 @@ const PROJECTS = [
       { type: 'github', url: 'https://github.com/kubilayege/UsageBar' },
       { type: 'releases', url: 'https://github.com/kubilayege/UsageBar/releases' },
     ],
+  },
+  {
+    slug: 'nodetoy',
+    title: 'nodetoy',
+    kind: 'tool',
+    year: 2026,
+    genre: 'Web app · Shaders',
+    platforms: ['Web'],
+    facts: [{ label: 'Type', value: 'Personal · live on the web' }],
+    media: {
+      wide: true,
+      poster: 'videos/posters/nodetoy.jpg',
+      images: [
+        { src: '1x/nodetoy/01-editor.jpg', caption: 'Node editor' },
+        { src: '1x/nodetoy/02-feed.jpg', caption: 'Home feed' },
+        { src: '1x/nodetoy/03-glsl.jpg', caption: 'GLSL editor' },
+        { src: '1x/nodetoy/04-export.jpg', caption: 'Export to engines' },
+        { src: '1x/nodetoy/05-claude.jpg', caption: 'Use with Claude' },
+      ],
+    },
+    tagline: 'A Shadertoy-style playground where shaders are wired from nodes, written in GLSL, or built by Claude.',
+    about:
+      'A shader playground in the browser: build fragment shaders as node graphs or write them in GLSL, watch them run live on the GPU, then save, fork, like and comment on them in a public feed. Shaders export straight into Unity, Godot, Unreal and Blender, and Claude can build and edit them with you over MCP or right inside the editor. The example is Balatro Cards, a node graph of three animated cards with foil, holographic and polychrome finishes.',
+    built: [
+      'Node editor with 100+ node types across math, noise, SDF shapes, color, textures and lighting, live previews on every node, inner graphs you can reuse, and Loop nodes.',
+      'A graph-to-GLSL compiler and a GLSL-to-nodes importer that follows loops, branches, helper functions, matrices and structs, so a shader can switch between the two views.',
+      'WebGL renderer with Shadertoy-style inputs: Buffer A to D passes for feedback and simulations, iChannel textures, keyboard, mouse, sound output and a font atlas.',
+      'Preview on a plane, cube, sphere, torus, a loaded FBX, OBJ or glTF mesh, or a UI element, plus a GPU cost estimate per pixel with frame times for phones, laptops and desktops.',
+      'Export to game engines: Unity (shader, material and a Shader Graph Custom Function), Godot 4, Unreal 5, and Blender as a node material for EEVEE and Cycles or an OSL script, through typed GLSL to HLSL, Godot and OSL translators.',
+      'MCP server for Claude Code, Claude Desktop and claude.ai: Claude reads the node catalog, validates, builds and patches graphs, and the open editor updates live.',
+      'An editor Agent tab backed by a local bridge that installs with one curl command as a login service, so Claude Code works on the canvas like a person, and the session can be exported as a video.',
+      'Realtime backend on Convex with Google sign-in, guest sessions that carry their shaders over on sign-in, a feed with hot and top rankings, forks, likes and comments.',
+    ],
+    stack: ['TypeScript', 'Preact', 'WebGL', 'GLSL', 'Convex', 'CodeMirror', 'MCP', 'Vercel'],
+    links: [{ type: 'live', url: 'https://nodetoy-navy.vercel.app/?s=kh7fbzkmm4apf0v66f051ngk298fxrr0' }],
   },
   {
     slug: 'cloud-services-app',
